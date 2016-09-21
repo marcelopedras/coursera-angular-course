@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
+      <script src="angular.min.js"></script>
+      <script src="app.js"></script>
+  </head>
+<body>
+  <div ng-app="ShoppingList" class="container">
+  <h1>Shopping List Check Off</h1>
+
+  <div class="row">
+
+    <!-- To Buy List -->
+    <div ng-controller="ToBuyShoppingController as toBuy" class="col-md-6">
+        <div class="row">
+            <label for="itemName">Name:</label>
+            <input ng-model="toBuy.itemName" type="text" class="form-control" id="itemName">
+
+
+            <label for="itemQuantity">Quantity:</label>
+            <input ng-model="toBuy.itemQuantity"type="text" class="form-control" id="itemQuantity">
+
+        <button ng-click="toBuy.addItem()" class="btn btn-default" >Add Item</button>
+        </div>
+
+     <h2>To Buy:</h2>
+     <ul  ng-repeat="item in toBuy.toBuyList" >
+       <li>{{item.name}} {{item.quantity}} <button ng-click="toBuy.boughtButton($index)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+     </ul>
+     <div ng-if="toBuy.isEmpty()" class="emptyMessage">Everything is bought!</div>
+    </div>
+      </div>
+
+    <!-- Already Bought List -->
+    <div ng-controller="AlreadyBoughtShoppingController as alreadyBought" class="col-md-6">
+     <h2>Already Bought:</h2>
+     <ul ng-repeat="item in alreadyBought.alreadyBoughtList">
+       <li>Bought {{item.name}} {{item.quantity}} <button ng-click="alreadyBought.cancelItem($index)" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel </button></li>
+     </ul>
+     <div ng-if="alreadyBought.isEmpty()" class="emptyMessage">Nothing bought yet.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
