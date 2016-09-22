@@ -14,7 +14,6 @@
 
         toBuy.itemName = "";
         toBuy.itemQuantity = "";
-
         toBuy.toBuyList = ShoppingListCheckOffService.listsToBuy();
 
 
@@ -26,7 +25,10 @@
             ShoppingListCheckOffService.addToBuyItem(toBuy.itemName, toBuy.itemQuantity);
             toBuy.itemName = "";
             toBuy.itemQuantity = "";
+        };
 
+        toBuy.removeItem = function(pos) {
+            ShoppingListCheckOffService.removeToBuyItem(pos);
         };
 
         toBuy.isEmpty = function() {
@@ -55,13 +57,17 @@
             {name: "Banana", quantity: "2 kg"},
             {name: "Cookies", quantity: "3 bags"},
             {name: "Chocolate", quantity: "1 kg"},
-            {name: "Rice", quantity: "3 bags"},
-            {name: "Bean", quantity: "3 bags"}
+            {name: "Rice", quantity: "5 kg"},
+            {name: "Bean", quantity: "1 kg"}
         ];
         var alreadyBoughtList = [];
 
         service.addToBuyItem = function(itemName, itemQuantity) {
             toBuyList.push({name: itemName, quantity: itemQuantity})
+        };
+
+        service.removeToBuyItem = function(pos) {
+            toBuyList.splice(pos,1)[0];
         };
 
         service.checkoutItem = function(pos) {
